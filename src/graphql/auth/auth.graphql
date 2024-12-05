@@ -1,0 +1,74 @@
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  role: String!
+  age: Int!
+  address: String!
+  createdAt: String!
+  updatedAt: String!
+  isEmailVerified: Boolean!
+}
+
+type RegisterResponse {
+  message: String!
+  user: User!
+}
+
+type Tokens {
+  access: Token!
+  refresh: Token!
+}
+
+type Token {
+  token: String!
+  expires: String!
+}
+
+type UserWithTokens {
+  message: String!
+  user: User!
+  tokens: Tokens!
+}
+
+type LogoutResponse {
+  message: String!
+}
+
+type RefreshTokenResponse {
+  message: String!
+  tokens: Tokens!
+}
+
+type ForgotPasswordResponse {
+  message: String!
+  tokens: String!
+}
+
+type ResetPasswordResponse {
+  message: String!
+}
+
+type SendVerificationEmailResponse {
+  message: String!
+  tokens: String!
+}
+
+type VerifyEmailResponse {
+  message: String!
+}
+
+type Mutation {
+  register(name: String!, email: String!, password: String!, role: String!, age: Float!, address: String!): RegisterResponse!
+  login(email: String!, password: String!): UserWithTokens!
+  logout(token: String!): LogoutResponse!
+  refreshAuthToken(token: String): RefreshTokenResponse!
+  forgotPassword(email: String!): ForgotPasswordResponse!
+  resetPassword(token: String!, password: String!): ResetPasswordResponse!
+  sendVerificationEmail(id: String! name: String!, email: String!, password: String!, role: String!, age: Float!, address: String!): SendVerificationEmailResponse!
+  verifyEmail(token: String!): VerifyEmailResponse!
+}
+
+schema {
+  mutation: Mutation
+}

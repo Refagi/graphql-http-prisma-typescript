@@ -1,0 +1,32 @@
+import morgan from 'morgan';
+import config from './config.js';
+import { logger } from './logger.js';
+import { Request, Response, Application } from 'express';
+
+morgan.token('message', (req: Request, res: Response) => res.locals.errorMessage || '');
+
+const getIpFormat = (): string => (config.env === 'production' ? ':remote-addr - ' : '');
+const successResponseFormat = `${getIpFormat()}:method :url :status - :response-time ms`;
+const errorResponseFormat = `${getIpFormat()}:method :url :status - :response-time ms - message: :message`;
+
+const successHandler = morgan(successResponseFormat, {
+  skip: (req: Request, res: Response) => res.statusCode >= 400,
+  stream: { write: (message: string) => logger.info(message.trim()) }
+});
+
+const errorHandler = morgan(errorResponseFormat, {
+  skip: (req: Request, res: Response) => res.statusCode < 400,
+  stream: { write: (message: string) => logger.error(message.trim()) }
+});
+
+// export const setupMorgan = (app: Application) => {
+//   if (config.env !== 'test') {
+//     app.use(successHandler); // Log sukses hanya jika tidak ada error
+//     app.use(errorHandler); // Log error hanya jika ada error
+//   }
+// };
+
+export default {
+  successHandler,
+  errorHandler
+};

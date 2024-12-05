@@ -1,0 +1,55 @@
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  role: String!
+  age: Int!
+  address: String!
+  createdAt: String!
+  updatedAt: String!
+  isEmailVerified: Boolean!
+}
+
+type UserResponse {
+  message: String!
+  user: User!
+}
+
+type UserPaginationResponse {
+  message: String!
+  currentPage: Int!
+  totalData: Int!
+  totalPage: Int!
+  user: [User]
+}
+
+input UserUpdate {
+  name: String
+  email: String
+  role: String
+  age: Int
+  address: String
+  isEmailVerified: Boolean
+}
+
+type UpdateDeleteUserResponse {
+  message: String!
+  user: User!
+}
+
+type Mutation {
+  createUser(name: String!, email: String!, password: String!, role: String!, age: Float!, address: String!): UserResponse!
+  updateUserById(id: ID!, user: UserUpdate!): UpdateDeleteUserResponse!
+  deleteUserById(id: ID!): UpdateDeleteUserResponse!
+}
+
+type Query {
+  getUserById(id: String!): UserResponse!
+  getUserByEmail(email: String!): UserResponse!
+  getUsers(search: String!, page: String!, size: String!): UserPaginationResponse!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
