@@ -1,6 +1,5 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
-// import { jwtStrategy } from './config/passport';
 import passport from 'passport';
 import config from './config/config';
 import morgan from './config/morgan';
@@ -16,7 +15,6 @@ import { loadFilesSync } from '@graphql-tools/load-files';
 import { loadSchemaSync } from '@graphql-tools/load';
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader';
 import path from 'path';
-import { roleRights } from './config/role';
 import passportJwtAuth from './middlewares/auth';
 
 const app: Express = express();

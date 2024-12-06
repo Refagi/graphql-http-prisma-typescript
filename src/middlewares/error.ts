@@ -1,6 +1,5 @@
 import httpStatus from 'http-status';
 import { logger } from '../config/logger';
-import config from '../config/config';
 import { Prisma } from '@prisma/client';
 import { ApiError } from '../utils/ApiError';
 import { GraphQLError } from 'graphql';

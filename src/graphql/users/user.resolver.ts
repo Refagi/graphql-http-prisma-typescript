@@ -11,7 +11,6 @@ import {
 import { errorConverter } from '../../middlewares/error';
 import { GraphQLError } from 'graphql';
 import prisma from '../../../prisma/client';
-import { User } from '@prisma/client';
 import { RequestCreateUser, OptionTypeUsers, RequestUpdateUser } from '../../models/user.models';
 import {
   createUser,

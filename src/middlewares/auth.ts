@@ -1,17 +1,10 @@
 import passport from 'passport';
 import { Strategy, ExtractJwt, StrategyOptions, VerifiedCallback } from 'passport-jwt';
 import { JwtPayloadType } from './types/payload.types';
-// import { jwtOptions, jwtStrategy } from '../config/passport';
-import httpStatus from 'http-status';
-import { ApiError } from '../utils/ApiError';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-import { User } from '@prisma/client';
 import { roleRights } from '../config/role';
 import config from '../config/config';
-import { TokenTypes } from '../config/token';
 import prisma from '../../prisma/client';
-import { verifyToken } from '../services/token.services';
-import jwt from 'jsonwebtoken';
 
 export const jwtOptions = {
   secretOrKey: config.jwt.secret,
