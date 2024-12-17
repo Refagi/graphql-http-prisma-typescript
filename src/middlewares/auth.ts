@@ -20,7 +20,6 @@ export default function passportJwtAuth(app: any) {
         }
         const user = await prisma.user.findFirst({ where: { id: payload.sub } });
         if (!user) {
-          console.log('User not found for payload.sub:', payload.sub); // Debug ID yang dicari
           return done(null, false);
         }
         return done(null, user);
@@ -35,8 +34,6 @@ export default function passportJwtAuth(app: any) {
     if (token) {
       passport.authenticate('jwt', { session: false }, (err: Error, user: any) => {
         if (err || !user) {
-          console.log('Authentication error or no user found:', err, user);
-          console.log('Authenticated user:', user); // Debug: pastikan user ditemukan
           return next(err);
         }
         req.user = user;
